@@ -1,0 +1,75 @@
+.landmark-card {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.landmark-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.landmark-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.landmark-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.landmark-card:hover .landmark-image img {
+  transform: scale(1.05);
+}
+
+.landmark-city {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.landmark-info {
+  padding: 1.5rem;
+}
+
+.landmark-info h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+.landmark-info p {
+  color: #666;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.view-button {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+  text-decoration: none;
+}
+
+.view-button:hover {
+  background-color: #2a75e8;
+  text-decoration: none;
+  color: white;
+}
