@@ -1,30 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './LandmarkCard.css';
 
 const LandmarkCard = ({ landmark }) => {
-  // Ensure landmark is defined with fallback values
-  const { 
-    id = 0, 
-    name = 'Landmark Name', 
-    city = 'City', 
-    imageUrl = 'https://via.placeholder.com/300x200?text=Landmark', 
-    shortDescription = 'This is a placeholder description for this landmark.' 
-  } = landmark || {};
-  
+  // Destructure landmark properties
+  const { id, name, shortDescription, imageUrl, city, duration } = landmark;
+
   return (
     <div className="landmark-card">
-      <div className="landmark-image">
-        <img src={imageUrl} alt={name} />
-        <div className="landmark-city">{city}</div>
-      </div>
-      <div className="landmark-info">
-        <h3>{name}</h3>
-        <p>{shortDescription}</p>
-        <Link to={`/landmark/${id}`} className="view-button">
-          Listen to Tour
-        </Link>
-      </div>
+      <Link to={`/landmark/${id}`} className="landmark-link">
+        <div className="landmark-image-container">
+          <img 
+            src={imageUrl} 
+            alt={name}
+            loading="lazy" 
+            className="landmark-image"
+          />
+          <div className="landmark-duration">
+            <span>{duration} min</span>
+          </div>
+        </div>
+        <div className="landmark-content">
+          <h3 className="landmark-title">{name}</h3>
+          <p className="landmark-location">{city}</p>
+          <p className="landmark-description">{shortDescription}</p>
+        </div>
+      </Link>
     </div>
   );
 };
