@@ -6,9 +6,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-pwa-assets": "pwa-assets-generator"
   },
-  "keywords": ["audio", "tour", "landmarks"],
+  "keywords": [
+    "audio",
+    "tour",
+    "landmarks"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -18,5 +23,11 @@
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.4.0",
     "vite": "^6.2.2"
+  },
+  "devDependencies": {
+    "@vite-pwa/assets-generator": "^0.2.4",
+    "terser": "^5.29.0",
+    "vite-plugin-pwa": "^0.21.2",
+    "workbox-window": "^7.0.0"
   }
 }

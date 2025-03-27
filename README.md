@@ -16,7 +16,7 @@ If you're curious about whats around you on a deeper level than a one paragraph 
 4. **Read** the transcription if you didn't bring headphones or prefer it over audio
 
 ### Supported landmarks
-Here are the 50 landmarks the app supports across the 5 most popular cities in the US. I will expand to more cities and landmarks in the future.
+Here are the landmarks the app supports across popular cities in the US and internationally. I will expand to more cities and landmarks in the future.
 
 | City | Landmark |
 |------|----------|
@@ -70,3 +70,13 @@ Here are the 50 landmarks the app supports across the 5 most popular cities in t
 |  | TCL Chinese Theatre |
 |  | Rodeo Drive |
 |  | Dodger Stadium |
+| **Tokyo** | Shibuya Crossing |
+|  | Tokyo Skytree |
+|  | Meiji Shrine |
+|  | Senso-ji Temple |
+|  | Tokyo Imperial Palace |
+|  | Shinjuku Gyoen National Garden |
+|  | Tsukiji Fish Market |
+|  | Akihabara Electric Town |
+|  | Tokyo Tower |
+|  | Ueno Park |
