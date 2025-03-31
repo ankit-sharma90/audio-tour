@@ -82,14 +82,40 @@
 
 @media (max-width: 768px) {
   .city-hero {
-    padding: 3rem 1rem;
+    padding: 1.5rem 0.75rem;
+    margin-bottom: 1rem;
+    display: none; /* Hide the hero section on mobile to focus on landmarks */
   }
   
   .city-hero h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
+  }
+  
+  .city-hero p {
+    font-size: 1rem;
+  }
+  
+  .landmarks-section {
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0 0.25rem; /* Reduced side padding */
+  }
+  
+  .landmarks-heading {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: left;
+    padding-left: 0.5rem;
+  }
+  
+  .landmarks-heading:after {
+    left: 1rem;
+    transform: none;
+    width: 40px;
   }
   
   .landmarks-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }

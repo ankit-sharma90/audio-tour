@@ -1,50 +1,36 @@
 .landmark-page {
-  padding-bottom: 2rem;
-}
-
-.landmark-hero {
-  background-size: cover;
-  background-position: center;
-  color: white;
-  padding: 5rem 2rem;
-  margin-bottom: 3rem;
-  border-radius: 8px;
-}
-
-.landmark-hero-content {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.landmark-hero h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.landmark-location {
-  font-size: 1.2rem;
-  opacity: 0.9;
+  padding-bottom: 1rem; /* Reduced bottom padding */
 }
 
 .landmark-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 0.25rem; /* Reduced side padding */
+}
+
+.landmark-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.landmark-location {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 1rem;
 }
 
 .landmark-info-section,
 .landmark-tour-section {
   background-color: #fff;
   border-radius: 8px;
-  padding: 2rem;
+  padding: 1rem 0.5rem; /* Further reduced padding */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.landmark-info-section h2,
 .landmark-tour-section h2 {
   color: var(--primary-color);
   margin-bottom: 1.5rem;
@@ -137,19 +123,79 @@ audio {
 }
 
 @media (max-width: 768px) {
-  .landmark-hero {
-    padding: 3rem 1rem;
-  }
-  
-  .landmark-hero h1 {
-    font-size: 2rem;
-  }
-  
   .landmark-content {
     grid-template-columns: 1fr;
+    gap: 0.25rem;
+    padding: 0; /* Removed side padding completely */
+    margin: 0; /* Remove any margin */
+  }
+  
+  .landmark-info-section,
+  .landmark-tour-section {
+    padding: 0.5rem 0; /* Remove horizontal padding completely */
+    box-shadow: none; /* Remove shadow for cleaner mobile look */
+    margin-bottom: 0.5rem;
+    border-radius: 0; /* Remove border radius for full-width look */
+  }
+  
+  /* Title is hidden in mobile view via JSX */
+  .landmark-title {
+    display: none;
+  }
+  
+  .landmark-location {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+    padding: 0 0.5rem; /* Add minimal padding only to text */
+  }
+  
+  .landmark-description {
+    margin-top: 0;
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 0.5rem; /* Further reduced margin to fit more content above scroll */
+    padding: 0 0.5rem; /* Add minimal padding only to text */
+    font-weight: 500; /* Make summary slightly bolder */
+  }
+  
+  .landmark-address {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    padding: 0 0.5rem; /* Add minimal padding only to text */
+  }
+  
+  .back-to-city {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    padding: 0 0.5rem; /* Add minimal padding only to text */
   }
   
   .tour-options {
     flex-direction: column;
+    gap: 0.5rem;
+    padding: 0 0.5rem; /* Add minimal padding only to controls */
+  }
+  
+  .audio-player {
+    margin-bottom: 0.75rem;
+    padding: 0 0.5rem; /* Add minimal padding only to controls */
+  }
+  
+  .transcript p {
+    padding: 0.5rem;
+    max-height: 250px;
+    margin: 0 0.5rem; /* Add minimal margin instead of padding to container */
+  }
+  
+  .landmark-tour-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    padding: 0 0.5rem 0.25rem 0.5rem; /* Adjust padding to maintain left alignment */
+  }
+  
+  /* Ensure the page takes full width */
+  .landmark-page {
+    padding: 0;
+    width: 100%;
   }
 }
