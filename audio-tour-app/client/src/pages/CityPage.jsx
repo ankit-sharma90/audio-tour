@@ -54,7 +54,7 @@ const CityPage = () => {
       </div>
 
       <section className="landmarks-section">
-        <h2>Landmarks in {city.name}</h2>
+        <h2 className="landmarks-heading">Landmarks in {city.name}</h2>
         {landmarks.length > 0 ? (
           <div className="landmarks-grid">
             {landmarks.map(landmark => (

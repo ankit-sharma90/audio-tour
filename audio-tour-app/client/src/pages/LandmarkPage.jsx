@@ -49,19 +49,25 @@ const LandmarkPage = () => {
     return <div className="error">{error}</div>;
   }
 
+  // Create a summary paragraph from the description
+  const getSummary = (text) => {
+    // Get first 150 characters or first two sentences, whichever is shorter
+    const firstSentences = text.split(/[.!?]/).slice(0, 2).join('. ') + '.';
+    return text.length > 150 ? text.substring(0, 150) + '...' : firstSentences;
+  };
+
   return (
     <div className="landmark-page">
-      <div className="landmark-hero" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${landmark.imageUrl})` }}>
-        <div className="landmark-hero-content">
-          <h1>{landmark.name}</h1>
-          <p className="landmark-location">{landmark.city}</p>
-        </div>
-      </div>
-
       <div className="landmark-content">
         <div className="landmark-info-section">
-          <h2>About {landmark.name}</h2>
-          <p className="landmark-description">{landmark.description}</p>
+          {/* City name as location indicator */}
+          <p className="landmark-location">{landmark.city}</p>
+          
+          {/* Summary paragraph that will be visible above the scroll line */}
+          <p className="landmark-description">
+            {getSummary(landmark.description)}
+          </p>
+          
           <p className="landmark-address"><strong>Address:</strong> {landmark.address}</p>
           <Link to={`/city/${landmark.city.toLowerCase()}`} className="back-to-city">
             View all landmarks in {landmark.city}
