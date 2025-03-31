@@ -28,6 +28,12 @@
     - remove the first image too
     - theres too much padding on the sides
 
+#### Task 5: text to speech
+- use examples of good mobile web applications as inspiration
+- make the text readable
+- ensure most important elements are above the scroll line
+- ensure there is not too much padding
+
 #### Precommit checks
 ##### Precommit check 1: security issues
 - check for any security issues in the project
