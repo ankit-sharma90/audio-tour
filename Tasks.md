@@ -29,10 +29,10 @@
     - theres too much padding on the sides
 
 #### Task 5: text to speech
-- use examples of good mobile web applications as inspiration
-- make the text readable
-- ensure most important elements are above the scroll line
-- ensure there is not too much padding
+- convert existing text into audio files
+- ensure approach allows for quick prototyping
+- dont spend more than $10
+- ensure the voices sound realistic
 
 #### Precommit checks
 ##### Precommit check 1: security issues
