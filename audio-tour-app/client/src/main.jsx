@@ -5,6 +5,10 @@ import App from './App';
 import './index.css';
 import './mobile.css';
 import './styles/mobile-components.css';
+import './components/LandmarkCard.css';
+import './styles/responsive-fixes.css';
+import './styles/image-fixes.css';
+import './styles/debug.css';
 
 // Register service worker for offline capabilities and PWA support
 if ('serviceWorker' in navigator) {
@@ -47,6 +51,21 @@ if (!('ontouchstart' in window)) {
     e.target.dispatchEvent(touchEvent);
   });
 }
+
+// Add image loading debug helpers
+window.addEventListener('load', () => {
+  // Add load event to all images to track successful loading
+  document.querySelectorAll('img').forEach(img => {
+    img.addEventListener('load', () => {
+      img.classList.add('loaded');
+      console.log(`Image loaded successfully: ${img.src}`);
+    });
+    
+    img.addEventListener('error', () => {
+      console.error(`Failed to load image: ${img.src}`);
+    });
+  });
+});
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

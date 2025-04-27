@@ -3,36 +3,57 @@
  * Handles responsive images and lazy loading
  */
 
+// Cache format support results to avoid redundant checks
+let formatSupportCache = null;
+
 /**
  * Determines if the browser supports modern image formats
  * @returns {Object} Object containing support status for various formats
  */
 export const getImageFormatSupport = () => {
+  // Return cached result if available
+  if (formatSupportCache) return formatSupportCache;
+  
   const formats = {
     webp: false,
     avif: false
   };
   
-  // Check WebP support
-  const webpCheck = new Image();
-  webpCheck.onload = function() {
-    formats.webp = (webpCheck.width > 0) && (webpCheck.height > 0);
-  };
-  webpCheck.onerror = function() {
-    formats.webp = false;
-  };
-  webpCheck.src = 'data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==';
+  // Use feature detection for WebP
+  if (self.createImageBitmap) {
+    const webpData = 'data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==';
+    fetch(webpData)
+      .then(r => r.blob())
+      .then(blob => {
+        createImageBitmap(blob).then(() => {
+          formats.webp = true;
+          formatSupportCache = {...formats};
+        }).catch(() => {
+          formats.webp = false;
+          formatSupportCache = {...formats};
+        });
+      }).catch(() => {
+        formats.webp = false;
+        formatSupportCache = {...formats};
+      });
+  }
   
-  // Check AVIF support
-  const avifCheck = new Image();
-  avifCheck.onload = function() {
-    formats.avif = (avifCheck.width > 0) && (avifCheck.height > 0);
-  };
-  avifCheck.onerror = function() {
-    formats.avif = false;
-  };
-  avifCheck.src = 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgANogQEAwgMg8f8D///8WfhwB8+ErK';
+  // Check AVIF support more efficiently
+  if ('HTMLPictureElement' in window) {
+    const avif = document.createElement('img');
+    avif.src = 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgANogQEAwgMg8f8D///8WfhwB8+ErK';
+    avif.onload = () => {
+      formats.avif = true;
+      formatSupportCache = {...formats};
+    };
+    avif.onerror = () => {
+      formats.avif = false;
+      formatSupportCache = {...formats};
+    };
+  }
   
+  // Cache the results for future calls
+  formatSupportCache = {...formats};
   return formats;
 };
 
@@ -65,7 +86,10 @@ export const createSrcSet = (baseUrl, sizes = [320, 640, 960, 1280]) => {
   // Remove any existing extension from baseUrl
   const basePath = baseUrl.replace(/\.[^/.]+$/, '');
   
-  return sizes
+  // Sort sizes in ascending order for better browser handling
+  const sortedSizes = [...sizes].sort((a, b) => a - b);
+  
+  return sortedSizes
     .map(size => `${basePath}_${size}w.${extension} ${size}w`)
     .join(', ');
 };

@@ -9,21 +9,21 @@ const fallbackCities = [
   {
     id: 1,
     name: 'San Francisco',
-    imageUrl: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29',
+    imageUrl: '/images/san_francisco.jpg',
     description: 'San Francisco, officially the City and County of San Francisco, is a cultural, commercial, and financial center in the U.S. state of California.',
     landmarkCount: 10
   },
   {
     id: 2,
     name: 'New York',
-    imageUrl: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9',
+    imageUrl: '/images/new_york.jpg',
     description: 'New York City comprises 5 boroughs sitting where the Hudson River meets the Atlantic Ocean.',
     landmarkCount: 10
   },
   {
     id: 3,
     name: 'Boston',
-    imageUrl: 'https://images.unsplash.com/photo-1501979376754-f46f582a0593',
+    imageUrl: '/images/boston.jpg',
     description: 'Boston is Massachusetts\' capital and largest city. Founded in 1630, it\'s one of the oldest cities in the U.S.',
     landmarkCount: 10
   }
@@ -34,22 +34,25 @@ const fallbackLandmarks = [
     id: 1,
     name: 'Golden Gate Bridge',
     city: 'San Francisco',
-    imageUrl: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29',
-    shortDescription: 'An iconic suspension bridge spanning the Golden Gate Strait.'
+    imageUrl: '/images/golden_gate.jpg',
+    shortDescription: 'An iconic suspension bridge spanning the Golden Gate Strait.',
+    duration: 10
   },
   {
     id: 2,
     name: 'Statue of Liberty',
     city: 'New York',
-    imageUrl: 'https://images.unsplash.com/photo-1605130284535-11dd9eedc58a',
-    shortDescription: 'A colossal neoclassical sculpture on Liberty Island in New York Harbor.'
+    imageUrl: '/images/statue_liberty.jpg',
+    shortDescription: 'A colossal neoclassical sculpture on Liberty Island in New York Harbor.',
+    duration: 12
   },
   {
     id: 3,
     name: 'Freedom Trail',
     city: 'Boston',
-    imageUrl: 'https://images.unsplash.com/photo-1569261995036-70d757e4219f',
-    shortDescription: 'A 2.5-mile-long path through downtown Boston that passes by 16 locations significant to the history of the United States.'
+    imageUrl: '/images/freedom_trail.jpg',
+    shortDescription: 'A 2.5-mile-long path through downtown Boston that passes by 16 locations significant to the history of the United States.',
+    duration: 15
   }
 ];
 
@@ -83,6 +86,25 @@ const HomePage = () => {
     };
 
     loadData();
+    
+    // Preload all city images to ensure they load quickly
+    // This is especially important for the Boston image that wasn't loading
+    const preloadAllImages = () => {
+      // Preload with high priority
+      const bostonImage = new Image();
+      bostonImage.importance = 'high'; // Modern browsers support this attribute
+      bostonImage.src = fallbackCities[2].imageUrl; // Boston is index 2
+      
+      // Preload other images with normal priority
+      fallbackCities.forEach((city, index) => {
+        if (index !== 2) { // Skip Boston as we already loaded it
+          const img = new Image();
+          img.src = city.imageUrl;
+        }
+      });
+    };
+    
+    preloadAllImages();
   }, []);
 
   if (loading) {
@@ -107,7 +129,21 @@ const HomePage = () => {
         <div className="cities-grid">
           {cities.map(city => (
             <Link to={`/city/${city.name.toLowerCase()}`} key={city.id} className="city-card">
-              <img src={city.imageUrl} alt={city.name} />
+              <img 
+                src={city.imageUrl} 
+                alt={city.name}
+                loading={city.id === 3 ? "eager" : "lazy"}
+                className="city-image"
+                onError={(e) => {
+                  console.error(`Failed to load image: ${e.target.src}`);
+                  // Fallback to our local placeholder if the original fails
+                  if (city.name === 'Boston') {
+                    e.target.src = "/images/boston_placeholder.svg";
+                  } else {
+                    e.target.src = "/images/" + city.name.toLowerCase().replace(' ', '_') + ".jpg";
+                  }
+                }}
+              />
               <div className="city-overlay">
                 <h3>{city.name}</h3>
                 <p>{city.landmarkCount} landmarks</p>

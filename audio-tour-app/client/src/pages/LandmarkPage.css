@@ -9,6 +9,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 0.25rem; /* Reduced side padding */
+  align-items: start; /* Prevent sections from stretching */
 }
 
 .landmark-title {
@@ -104,6 +105,7 @@ audio {
   border-radius: 4px;
   max-height: 300px;
   overflow-y: auto;
+  margin-bottom: 0; /* Prevent extra space at bottom */
 }
 
 .loading {

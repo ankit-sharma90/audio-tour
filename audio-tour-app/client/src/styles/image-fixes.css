@@ -1,0 +1,57 @@
+/**
+ * Image display fixes
+ */
+
+/* City card images */
+.city-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Landmark card images */
+.landmark-image-container {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.landmark-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.landmark-card:hover .landmark-image {
+  transform: scale(1.05);
+}
+
+/* Duration badge */
+.landmark-duration {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+/* Mobile duration badge */
+.landmark-duration-mobile {
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #333;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+}
+
+/* Ensure images don't break layout */
+img {
+  max-width: 100%;
+  height: auto;
+}

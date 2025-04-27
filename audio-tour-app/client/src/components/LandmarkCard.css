@@ -11,20 +11,26 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
-.landmark-image {
+.landmark-image-container {
   position: relative;
   height: 200px;
   overflow: hidden;
 }
 
-.landmark-image img {
+.landmark-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.landmark-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s;
 }
 
-.landmark-card:hover .landmark-image img {
+.landmark-card:hover .landmark-image {
   transform: scale(1.05);
 }
 

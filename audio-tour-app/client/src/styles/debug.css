@@ -1,0 +1,41 @@
+/**
+ * Debug styles to help identify image loading issues
+ */
+
+/* Add outline to images that are loading */
+img {
+  border: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+
+/* Add red outline to images that fail to load */
+img:not([src]), 
+img[src=""], 
+img[src="#"],
+img:not([src=""]):not([src="#"]):not([src]):not([src^="data:"]):not([src^="http"]):not([src^="/"]) {
+  border: 2px solid red;
+  min-height: 50px;
+  min-width: 50px;
+  background-color: #ffdddd;
+}
+
+/* Add green outline to images that successfully load */
+img.loaded {
+  border: 1px solid green;
+}
+
+/* Debug info for image loading */
+.debug-info {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  z-index: 9999;
+  max-width: 300px;
+  max-height: 200px;
+  overflow: auto;
+}

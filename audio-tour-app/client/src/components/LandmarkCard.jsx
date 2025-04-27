@@ -18,6 +18,12 @@ const LandmarkCard = ({ landmark }) => {
               alt={name}
               loading="lazy" 
               className="landmark-image"
+              onError={(e) => {
+                console.error(`Failed to load landmark image: ${e.target.src}`);
+                // Fallback to a local image based on landmark name
+                const landmarkKey = name.toLowerCase().replace(/\s+/g, '_');
+                e.target.src = `/images/${landmarkKey}.jpg`;
+              }}
             />
             <div className="landmark-duration">
               <span>{duration} min</span>
