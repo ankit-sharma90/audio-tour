@@ -53,14 +53,7 @@
   background-color: var(--footer-bg);
 }
 
-[data-theme="dark"] .mobile-nav {
-  background-color: var(--card-bg);
-}
-
-[data-theme="dark"] .mobile-nav {
-  background-color: var(--mobile-nav-bg);
-  border-top: 1px solid var(--border-color);
-}
+/* Mobile nav styles removed */
 
 [data-theme="dark"] button {
   background-color: var(--primary-color);
@@ -133,4 +126,26 @@ img {
   pointer-events: none;
   z-index: 9999;
   opacity: 0;
+}
+/* Additional dark mode styles for landmark cards */
+[data-theme="dark"] .landmark-card {
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .landmark-content {
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .landmark-title {
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .landmark-description {
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+[data-theme="dark"] .landmark-location {
+  color: var(--text-color);
+  opacity: 0.7;
 }

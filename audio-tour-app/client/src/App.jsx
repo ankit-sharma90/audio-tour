@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import MobileNav from './components/MobileNav';
 import NetworkStatus from './components/NetworkStatus';
 
 // Lazy load pages for better performance
@@ -13,16 +12,6 @@ const CityPage = lazy(() => import('./pages/CityPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 
 function App() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
     <ThemeProvider>
@@ -39,8 +28,7 @@ function App() {
             </Routes>
           </Suspense>
         </main>
-        {isMobile ? <MobileNav /> : <Footer />}
-        {!isMobile && <Footer />}
+        <Footer />
       </div>
     </ThemeProvider>
   );
