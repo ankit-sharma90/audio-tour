@@ -78,21 +78,35 @@
   color: var(--text-color);
 }
 
-/* Apply filter to images in dark mode */
+/* Apply filter to images in dark mode - use will-change for hardware acceleration */
 [data-theme="dark"] img {
   filter: var(--image-filter);
+  will-change: filter;
 }
 
-/* Transition for smooth theme switching */
-body, 
-.header, 
-.footer, 
-.nav, 
-.mobile-nav, 
-button, 
-input, 
-textarea, 
-select, 
+/* Optimize transitions for better performance */
+html {
+  /* Only transition color scheme at the root level */
+  transition: color-scheme 0.2s ease;
+}
+
+/* Use hardware-accelerated properties for better performance */
+body {
+  transition: background-color 0.2s ease;
+}
+
+.header,
+.footer,
+.mobile-nav {
+  transition: background-color 0.2s ease;
+}
+
+/* Limit transitions to only what's necessary */
+button:not(.theme-toggle) {
+  transition: background-color 0.2s ease;
+}
+
+/* Don't transition images - apply changes immediately */
 img {
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s, filter 0.3s, box-shadow 0.3s;
+  transition: none;
 }

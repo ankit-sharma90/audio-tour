@@ -22,8 +22,29 @@ export const applyDarkModeFilter = (imgElement, isDarkMode) => {
  * @param {boolean} isDarkMode - Whether dark mode is active
  */
 export const applyDarkModeToAllImages = (isDarkMode) => {
-  const images = document.querySelectorAll('img');
-  images.forEach(img => applyDarkModeFilter(img, isDarkMode));
+  // Use requestAnimationFrame for better performance
+  requestAnimationFrame(() => {
+    // Use a more efficient selector if possible
+    const images = document.querySelectorAll('img');
+    
+    // Process in chunks to avoid blocking the main thread
+    const processImagesInChunks = (startIndex, chunkSize) => {
+      const endIndex = Math.min(startIndex + chunkSize, images.length);
+      
+      for (let i = startIndex; i < endIndex; i++) {
+        applyDarkModeFilter(images[i], isDarkMode);
+      }
+      
+      if (endIndex < images.length) {
+        setTimeout(() => {
+          processImagesInChunks(endIndex, chunkSize);
+        }, 0);
+      }
+    };
+    
+    // Process 10 images at a time
+    processImagesInChunks(0, 10);
+  });
 };
 
 /**

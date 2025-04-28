@@ -15,14 +15,18 @@ export const ThemeProvider = ({ children }) => {
 
   // Update localStorage and apply theme when darkMode changes
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
-    
-    // Apply theme to document
-    if (darkMode) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-      document.documentElement.removeAttribute('data-theme');
-    }
+    // Use requestAnimationFrame to apply theme changes during the next paint
+    requestAnimationFrame(() => {
+      // Apply theme to document first for better perceived performance
+      if (darkMode) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+      
+      // Then save to localStorage (less time-sensitive)
+      localStorage.setItem('darkMode', JSON.stringify(darkMode));
+    });
   }, [darkMode]);
 
   // Listen for system theme changes

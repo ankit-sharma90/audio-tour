@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import { ThemeContext } from '../contexts/ThemeContext';
+import React from 'react';
+import useDarkMode from '../hooks/useDarkMode';
 import './ThemeToggle.css';
 
 const ThemeToggle = () => {
-  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
   return (
     <button 
