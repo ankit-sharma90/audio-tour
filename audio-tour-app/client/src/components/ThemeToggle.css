@@ -2,21 +2,20 @@
   background: none;
   border: none;
   color: var(--text-color);
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  transition: background-color 0.3s;
-  background-color: var(--theme-toggle-bg);
+  width: 32px;
+  height: 32px;
+  transition: opacity 0.2s;
+  opacity: 0.7;
 }
 
 .theme-toggle:hover {
-  background-color: var(--theme-toggle-hover-bg);
+  opacity: 1;
 }
 
 .theme-toggle-icon {
@@ -27,8 +26,9 @@
 
 @media (max-width: 768px) {
   .theme-toggle {
-    width: 36px;
-    height: 36px;
-    font-size: 1rem;
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+    margin-right: 0.25rem;
   }
 }

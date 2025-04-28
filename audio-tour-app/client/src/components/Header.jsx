@@ -50,8 +50,6 @@ const Header = () => {
         </Link>
         
         <div className="header-controls">
-          <ThemeToggle />
-          
           <button 
             className="menu-toggle" 
             aria-label="Toggle navigation menu"
@@ -59,6 +57,8 @@ const Header = () => {
           >
             ☰
           </button>
+          
+          <ThemeToggle />
         </div>
         
         <div className={`overlay ${menuOpen ? 'open' : ''}`} onClick={closeMenu}></div>

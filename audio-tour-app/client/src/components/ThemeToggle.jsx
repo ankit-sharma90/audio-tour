@@ -12,9 +12,9 @@ const ThemeToggle = () => {
       aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
     >
       {darkMode ? (
-        <span className="theme-toggle-icon">☀️</span>
+        <span className="theme-toggle-icon">☀</span>
       ) : (
-        <span className="theme-toggle-icon">🌙</span>
+        <span className="theme-toggle-icon">☾</span>
       )}
     </button>
   );
