@@ -1,5 +1,6 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from './contexts/ThemeContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import MobileNav from './components/MobileNav';
@@ -24,22 +25,24 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
-      <Header />
-      <NetworkStatus />
-      <main className="container scrollable-content">
-        <Suspense fallback={<div className="loading">Loading...</div>}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/city/:cityName" element={<CityPage />} />
-            <Route path="/landmark/:landmarkId" element={<LandmarkPage />} />
-            <Route path="/about" element={<AboutPage />} />
-          </Routes>
-        </Suspense>
-      </main>
-      {isMobile ? <MobileNav /> : <Footer />}
-      {!isMobile && <Footer />}
-    </div>
+    <ThemeProvider>
+      <div className="app">
+        <Header />
+        <NetworkStatus />
+        <main className="container scrollable-content">
+          <Suspense fallback={<div className="loading">Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/city/:cityName" element={<CityPage />} />
+              <Route path="/landmark/:landmarkId" element={<LandmarkPage />} />
+              <Route path="/about" element={<AboutPage />} />
+            </Routes>
+          </Suspense>
+        </main>
+        {isMobile ? <MobileNav /> : <Footer />}
+        {!isMobile && <Footer />}
+      </div>
+    </ThemeProvider>
   );
 }
 

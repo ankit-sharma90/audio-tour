@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { ThemeContext } from '../contexts/ThemeContext';
+import ThemeToggle from './ThemeToggle';
 import './Header.css';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { darkMode } = useContext(ThemeContext);
   
   // Close menu when screen size changes to desktop
   useEffect(() => {
@@ -39,20 +42,24 @@ const Header = () => {
   };
   
   return (
-    <header className="header">
+    <header className={`header ${darkMode ? 'dark' : ''}`}>
       <div className="container header-container">
         <Link to="/" className="logo" onClick={closeMenu}>
           <h1>Audio Tour</h1>
           <p className="tagline">If these walls could talk</p>
         </Link>
         
-        <button 
-          className="menu-toggle" 
-          aria-label="Toggle navigation menu"
-          onClick={toggleMenu}
-        >
-          ☰
-        </button>
+        <div className="header-controls">
+          <ThemeToggle />
+          
+          <button 
+            className="menu-toggle" 
+            aria-label="Toggle navigation menu"
+            onClick={toggleMenu}
+          >
+            ☰
+          </button>
+        </div>
         
         <div className={`overlay ${menuOpen ? 'open' : ''}`} onClick={closeMenu}></div>
         

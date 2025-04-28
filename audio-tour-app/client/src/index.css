@@ -1,10 +1,5 @@
-:root {
-  --primary-color: #3a86ff;
-  --secondary-color: #8338ec;
-  --accent-color: #ff006e;
-  --background-color: #f8f9fa;
-  --text-color: #212529;
-}
+/* Import theme variables */
+@import './styles/theme.css';
 
 * {
   margin: 0;
