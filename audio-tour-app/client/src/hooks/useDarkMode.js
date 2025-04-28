@@ -11,14 +11,31 @@ const useDarkMode = () => {
   
   // Optimize image processing
   const optimizedToggle = useCallback(() => {
+    // Create a visual indicator that toggle is happening
+    const toggleIndicator = document.createElement('div');
+    toggleIndicator.className = 'theme-transition-indicator';
+    document.body.appendChild(toggleIndicator);
+    
     // Toggle the theme state first for immediate UI feedback
     toggleDarkMode();
     
-    // Defer non-critical operations
-    setTimeout(() => {
-      // Apply image filters after a short delay to avoid blocking the main thread
-      applyDarkModeToAllImages(!darkMode);
-    }, 50);
+    // Handle image processing differently based on direction
+    // Going to light mode needs more optimization
+    if (darkMode) {
+      // When going from dark to light, process in smaller chunks with longer delays
+      setTimeout(() => {
+        applyDarkModeToAllImages(false);
+        // Remove the indicator after processing is complete
+        setTimeout(() => toggleIndicator.remove(), 50);
+      }, 10);
+    } else {
+      // When going from light to dark, we can process more quickly
+      setTimeout(() => {
+        applyDarkModeToAllImages(true);
+        // Remove the indicator after processing is complete
+        setTimeout(() => toggleIndicator.remove(), 50);
+      }, 10);
+    }
   }, [darkMode, toggleDarkMode]);
   
   // Apply image filters on initial render with a delay

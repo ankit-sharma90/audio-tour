@@ -20,12 +20,29 @@ export const ThemeProvider = ({ children }) => {
       // Apply theme to document first for better perceived performance
       if (darkMode) {
         document.documentElement.setAttribute('data-theme', 'dark');
+        // Add a class to body for easier targeting
+        document.body.classList.add('dark-theme');
       } else {
         document.documentElement.removeAttribute('data-theme');
+        // Remove the class from body
+        document.body.classList.remove('dark-theme');
       }
       
+      // Optimize paint performance by forcing a repaint of just the background
+      const tempDiv = document.createElement('div');
+      tempDiv.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0.01;';
+      document.body.appendChild(tempDiv);
+      
+      // Force a reflow
+      void tempDiv.offsetHeight;
+      
+      // Clean up
+      document.body.removeChild(tempDiv);
+      
       // Then save to localStorage (less time-sensitive)
-      localStorage.setItem('darkMode', JSON.stringify(darkMode));
+      setTimeout(() => {
+        localStorage.setItem('darkMode', JSON.stringify(darkMode));
+      }, 50);
     });
   }, [darkMode]);
 

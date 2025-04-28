@@ -79,23 +79,34 @@
 }
 
 /* Apply filter to images in dark mode - use will-change for hardware acceleration */
-[data-theme="dark"] img {
-  filter: var(--image-filter);
+.dark-mode-image {
+  filter: brightness(0.8) contrast(0.85) sepia(0.15) hue-rotate(320deg);
+  will-change: filter;
+}
+
+/* Pre-define the filter for dark mode to avoid recalculation */
+[data-theme="dark"] img:not(.dark-mode-image) {
+  filter: brightness(0.8) contrast(0.85) sepia(0.15) hue-rotate(320deg);
   will-change: filter;
 }
 
 /* Optimize transitions for better performance */
 html {
   /* Only transition color scheme at the root level */
-  transition: color-scheme 0.2s ease;
+  transition: color-scheme 0.15s ease;
 }
 
 /* Use hardware-accelerated properties for better performance */
 body {
-  transition: background-color 0.2s ease;
+  transition: background-color 0.15s ease;
+  will-change: background-color;
 }
 
-.header,
+.header {
+  transition: background-color 0.15s ease;
+  will-change: background-color;
+}
+
 .footer,
 .mobile-nav {
   transition: background-color 0.2s ease;
@@ -109,4 +120,17 @@ button:not(.theme-toggle) {
 /* Don't transition images - apply changes immediately */
 img {
   transition: none;
+  contain: paint;
+}
+/* Theme transition indicator */
+.theme-transition-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
 }

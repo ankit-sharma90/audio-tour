@@ -10,10 +10,14 @@
 export const applyDarkModeFilter = (imgElement, isDarkMode) => {
   if (!imgElement) return;
   
+  // Use classList to toggle a class instead of directly setting style
+  // This is more performant as it avoids style recalculation
   if (isDarkMode) {
-    imgElement.style.filter = 'brightness(0.8) contrast(0.85) sepia(0.15) hue-rotate(320deg)';
+    imgElement.classList.add('dark-mode-image');
+    imgElement.style.filter = ''; // Remove inline style if any
   } else {
-    imgElement.style.filter = 'none';
+    imgElement.classList.remove('dark-mode-image');
+    imgElement.style.filter = ''; // Remove inline style if any
   }
 };
 
@@ -24,11 +28,31 @@ export const applyDarkModeFilter = (imgElement, isDarkMode) => {
 export const applyDarkModeToAllImages = (isDarkMode) => {
   // Use requestAnimationFrame for better performance
   requestAnimationFrame(() => {
-    // Use a more efficient selector if possible
-    const images = document.querySelectorAll('img');
+    // Get only visible images for initial processing
+    const allImages = Array.from(document.querySelectorAll('img'));
+    
+    // Separate visible and non-visible images
+    const visibleImages = [];
+    const nonVisibleImages = [];
+    
+    allImages.forEach(img => {
+      const rect = img.getBoundingClientRect();
+      const isVisible = (
+        rect.top >= -rect.height &&
+        rect.left >= -rect.width &&
+        rect.bottom <= window.innerHeight + rect.height &&
+        rect.right <= window.innerWidth + rect.width
+      );
+      
+      if (isVisible) {
+        visibleImages.push(img);
+      } else {
+        nonVisibleImages.push(img);
+      }
+    });
     
     // Process in chunks to avoid blocking the main thread
-    const processImagesInChunks = (startIndex, chunkSize) => {
+    const processImagesInChunks = (images, startIndex, chunkSize, delay) => {
       const endIndex = Math.min(startIndex + chunkSize, images.length);
       
       for (let i = startIndex; i < endIndex; i++) {
@@ -37,13 +61,18 @@ export const applyDarkModeToAllImages = (isDarkMode) => {
       
       if (endIndex < images.length) {
         setTimeout(() => {
-          processImagesInChunks(endIndex, chunkSize);
-        }, 0);
+          processImagesInChunks(images, endIndex, chunkSize, delay);
+        }, delay);
       }
     };
     
-    // Process 10 images at a time
-    processImagesInChunks(0, 10);
+    // Process visible images first with smaller chunks and faster timing
+    processImagesInChunks(visibleImages, 0, isDarkMode ? 10 : 5, isDarkMode ? 0 : 5);
+    
+    // Then process non-visible images with larger delay
+    setTimeout(() => {
+      processImagesInChunks(nonVisibleImages, 0, 20, 10);
+    }, 100);
   });
 };
 
