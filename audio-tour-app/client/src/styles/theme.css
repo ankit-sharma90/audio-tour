@@ -53,7 +53,7 @@
   background-color: var(--footer-bg);
 }
 
-[data-theme="dark"] .nav {
+[data-theme="dark"] .mobile-nav {
   background-color: var(--card-bg);
 }
 

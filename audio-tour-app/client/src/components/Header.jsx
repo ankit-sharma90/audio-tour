@@ -49,21 +49,30 @@ const Header = () => {
           <p className="tagline">If these walls could talk</p>
         </Link>
         
-        <div className="header-controls">
-          <button 
-            className="menu-toggle" 
-            aria-label="Toggle navigation menu"
-            onClick={toggleMenu}
-          >
-            ☰
-          </button>
+        <div className="header-right">
+          <div className="desktop-nav">
+            <ul>
+              <li><Link to="/" onClick={closeMenu}>Home</Link></li>
+              <li><Link to="/about" onClick={closeMenu}>About</Link></li>
+            </ul>
+          </div>
           
-          <ThemeToggle />
+          <div className="header-actions">
+            <ThemeToggle />
+            
+            <button 
+              className="menu-toggle" 
+              aria-label="Toggle navigation menu"
+              onClick={toggleMenu}
+            >
+              ☰
+            </button>
+          </div>
         </div>
         
         <div className={`overlay ${menuOpen ? 'open' : ''}`} onClick={closeMenu}></div>
         
-        <nav className={`nav ${menuOpen ? 'open' : ''}`}>
+        <nav className={`mobile-nav ${menuOpen ? 'open' : ''}`}>
           <button 
             className="close-menu" 
             aria-label="Close navigation menu"
