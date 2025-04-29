@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Header from './components/Header';
@@ -12,6 +12,7 @@ const CityPage = lazy(() => import('./pages/CityPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 
 function App() {
+
 
   return (
     <ThemeProvider>

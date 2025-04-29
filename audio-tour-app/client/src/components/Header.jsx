@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ThemeContext } from '../contexts/ThemeContext';
 import ThemeToggle from './ThemeToggle';
@@ -6,12 +6,16 @@ import './Header.css';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const { darkMode } = useContext(ThemeContext);
   
-  // Close menu when screen size changes to desktop
+  // Close menu when screen size changes to desktop and track mobile state
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 768 && menuOpen) {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      
+      if (!mobile && menuOpen) {
         setMenuOpen(false);
       }
     };
@@ -73,13 +77,15 @@ const Header = () => {
         <div className={`overlay ${menuOpen ? 'open' : ''}`} onClick={closeMenu}></div>
         
         <nav className={`mobile-nav ${menuOpen ? 'open' : ''}`}>
-          <button 
-            className="close-menu" 
-            aria-label="Close navigation menu"
-            onClick={closeMenu}
-          >
-            ✕
-          </button>
+          {isMobile && (
+            <button 
+              className="close-menu" 
+              aria-label="Close navigation menu"
+              onClick={closeMenu}
+            >
+              ✕
+            </button>
+          )}
           <ul>
             <li><Link to="/" onClick={closeMenu}>Home</Link></li>
             <li><Link to="/about" onClick={closeMenu}>About</Link></li>
