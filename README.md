@@ -1,4 +1,4 @@
-# audio-tour
+# Audio Tour App
 >If these walls could talk
 
 There is so much history and stories in the places we visit, but we don’t know about them. Learning about the history, myths, and legends about a place make us feel more connected to it. 
@@ -14,6 +14,8 @@ If you're curious about whats around you on a deeper level than a one paragraph 
 2. **Download** audio tours for offline listening, in case you won't have internet access
 3. **Choose** between bite-sized 2 minute overviews, or dive into 10 minute immersive sessions
 4. **Read** the transcription if you didn't bring headphones or prefer it over audio
+5. **Dark Mode** for comfortable viewing at night with reduced contrast and red-tinted images
+6. **Mobile-optimized** interface designed for on-the-go exploration
 
 ### Supported landmarks
 Here are the landmarks the app supports across popular cities in the US and internationally. I will expand to more cities and landmarks in the future.

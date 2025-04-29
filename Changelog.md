@@ -18,3 +18,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Set up project structure for future expansion
 - Added documentation in README.md
 - Configured deployment settings for Vercel (frontend) and Render (backend)
+
+## [1.0.0] - 2025-04-28
+### Added
+- Dark mode UI with toggle button
+- Theme context for managing application theme
+- Image filters for dark mode (low contrast with red tint)
+- Persistent theme preference using localStorage
+- System theme preference detection
+- Smooth transitions between light and dark themes
+- Accessibility improvements for theme toggle
+
+## [1.0.1] - 2025-04-29
+### Changed
+- Removed bottom navigation menu for cleaner interface
+- Improved mobile UI with conditional X button display
+- Updated README with mobile optimization feature
+- Enhanced mobile responsiveness across all pages
